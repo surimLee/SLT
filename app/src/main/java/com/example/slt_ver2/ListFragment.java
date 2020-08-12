@@ -1,13 +1,19 @@
 package com.example.slt_ver2;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +27,7 @@ public class ListFragment extends Fragment  {
     RecyclerView signLanguageListRecyclerView;
     SignLanguageListAdapter signLanguageListAdapter;
     List<SignLanguageList> signLanguageList;
+
 
     public ListFragment()
     {
@@ -50,8 +57,11 @@ public class ListFragment extends Fragment  {
 
     }
 
+    Button btn_Add;
+
+    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         fragmentView = inflater.inflate(R.layout.fragment_list, container, false);
         signLanguageListRecyclerView = fragmentView.findViewById(R.id.signlanguage_recycler);
@@ -60,6 +70,17 @@ public class ListFragment extends Fragment  {
 
         signLanguageListAdapter = new SignLanguageListAdapter(getActivity(), signLanguageList);
         signLanguageListRecyclerView.setAdapter(signLanguageListAdapter);
+
+
+//        btn_Add = fragmentView.findViewById(R.id.btn_Add);
+//        btn_Add.setOnClickListener(new View.OnClickListener()
+//        {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent_addParkinglot = new Intent(getActivity(), AddParkinglotActivity.class);
+//                startActivity(intent_addParkinglot);
+//            }
+//        });
 
         return fragmentView;
 

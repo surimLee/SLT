@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() { //스레드 실행구문
                 try {
                     //소켓을 생성하고 입출력 스트립을 소켓에 연결한다.
-                    socket = new Socket("115.85.173.148", 9999); //소켓생성
+                    socket = new Socket("115.85.173.148", 8888); //소켓생성
                     out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())), true); //데이터를 전송시 stream 형태로 변환하여 전송한다.
                     in = new BufferedReader(new InputStreamReader(socket.getInputStream())); //데이터 수신시 stream을 받아들인다.
 
