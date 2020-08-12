@@ -21,6 +21,8 @@ import java.util.List;
 import com.example.slt_ver2.R;
 import com.example.slt_ver2.SignLanguageListAdapter;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 
 public class ListFragment extends Fragment  {
     View fragmentView;
@@ -72,15 +74,29 @@ public class ListFragment extends Fragment  {
         signLanguageListRecyclerView.setAdapter(signLanguageListAdapter);
 
 
-//        btn_Add = fragmentView.findViewById(R.id.btn_Add);
-//        btn_Add.setOnClickListener(new View.OnClickListener()
-//        {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent_addParkinglot = new Intent(getActivity(), AddParkinglotActivity.class);
-//                startActivity(intent_addParkinglot);
-//            }
-//        });
+        btn_Add = fragmentView.findViewById(R.id.btn_Add);
+
+        btn_Add.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view) {
+                new SweetAlertDialog(getActivity(), SweetAlertDialog.NORMAL_TYPE)
+                        .setTitleText("수화데이터 수집중")
+                        .setContentText("지금부터 수화를 1회 사용해주세요.")
+                        .setConfirmText("완료")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                sweetAlertDialog.setTitleText("동작 완료!")
+                                        .setContentText("수화 등록이 완료되었습니다.")
+                                        .setConfirmText("완료")
+                                        .setConfirmClickListener(null)
+                                        .changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+                            }
+                        })
+                        .show();
+            }
+        });
 
         return fragmentView;
 
