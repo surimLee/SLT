@@ -2,8 +2,10 @@ package com.example.slt_ver2;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.app.Fragment;
+import androidx.fragment.app.Fragment;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,6 +23,7 @@ import java.util.List;
 import com.example.slt_ver2.R;
 import com.example.slt_ver2.SignLanguageListAdapter;
 
+import cn.pedant.SweetAlert.Constants;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 

@@ -9,6 +9,8 @@ import android.bluetooth.BluetoothAdapter;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
@@ -30,16 +32,18 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 import com.example.slt_ver2.R;
-import com.example.slt_ver2.TranslationFragment;
-import com.example.slt_ver2.ListViewFragment;
-import com.example.slt_ver2.SettingFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import butterknife.ButterKnife;
 
 import static com.example.slt_ver2.TranslationFragment.handler;
 
 public class MainActivity extends AppCompatActivity {
     static BluetoothService bluetoothService = null;
     private BluetoothAdapter mBluetoothAdapter = null;
+
+    private FragmentManager fragmentManager;
+    private Fragment fa, fb, fc;
 
     private Socket socket;  //소켓생성
     static BufferedReader in;      //서버로부터 온 데이터를 읽는다.
@@ -49,22 +53,62 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+
+        fragmentManager = getSupportFragmentManager();
+
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomnavigationview_main);
+
+
+//        getFragmentManager().beginTransaction().replace(R.id.layout_container, new TranslationFragment()).commit();
+
         bottomNavigationView.setSelectedItemId(R.id.navigation_translator);
-        getFragmentManager().beginTransaction().replace(R.id.layout_container, new TranslationFragment()).commit();
+        fa = new TranslationFragment();
+        fragmentManager.beginTransaction().replace(R.id.layout_container,fa).commit();
+
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@androidx.annotation.NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.navigation_translator:
-                        getFragmentManager().beginTransaction().replace(R.id.layout_container, new TranslationFragment()).commit();
+//                        getFragmentManager().beginTransaction().replace(R.id.layout_container, new TranslationFragment()).commit();
+
+                        if(fa == null) {
+                            fa = new TranslationFragment();
+                            fragmentManager.beginTransaction().add(R.id.layout_container, fa).commit();
+                        }
+
+                        if(fa != null) fragmentManager.beginTransaction().show(fa).commit();
+                        if(fb != null) fragmentManager.beginTransaction().hide(fb).commit();
+                        if(fc != null) fragmentManager.beginTransaction().hide(fc).commit();
+
                         return true;
                     case R.id.navigation_list:
-                        getFragmentManager().beginTransaction().replace(R.id.layout_container, new ListFragment()).commit();
+//                        getFragmentManager().beginTransaction().replace(R.id.layout_container, new ListFragment()).commit();
+
+                        if(fb == null) {
+                            fb = new ListFragment();
+                            fragmentManager.beginTransaction().add(R.id.layout_container, fb).commit();
+                        }
+
+                        if(fa != null) fragmentManager.beginTransaction().hide(fa).commit();
+                        if(fb != null) fragmentManager.beginTransaction().show(fb).commit();
+                        if(fc != null) fragmentManager.beginTransaction().hide(fc).commit();
+
                         return true;
                     case R.id.navigation_setting:
-                        getFragmentManager().beginTransaction().replace(R.id.layout_container, new SettingFragment()).commit();
+//                        getFragmentManager().beginTransaction().replace(R.id.layout_container, new SettingFragment()).commit();
+
+                        if(fc == null) {
+                            fc = new SettingFragment();
+                            fragmentManager.beginTransaction().add(R.id.layout_container, fc).commit();
+                        }
+
+                        if(fa != null) fragmentManager.beginTransaction().hide(fa).commit();
+                        if(fb != null) fragmentManager.beginTransaction().hide(fb).commit();
+                        if(fc != null) fragmentManager.beginTransaction().show(fc).commit();
+
                         return true;
                 }
                 return false;

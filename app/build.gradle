@@ -16,6 +16,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 repositories {
@@ -40,11 +45,11 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.github.kimkevin:hangulparser:1.0.0'
-    implementation 'com.android.support:recyclerview-v7:30.1.+'
     implementation 'com.android.support:localbroadcastmanager:30.0.0'
     implementation 'com.sothree.slidinguppanel:library:3.4.0'
-    implementation 'com.github.f0ris.sweetalert:library:1.5.1' //sweet dialog
+    implementation 'com.github.f0ris.sweetalert:library:1.5.2' //sweet dialog
 //    implementation 'cn.pedant.sweetalert:library:1.3'
-
+    implementation 'com.jakewharton:butterknife:10.0.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
 
 }
